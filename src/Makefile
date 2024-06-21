@@ -13,7 +13,7 @@ $(OBJS):tokenizer.h
 clean:
 	rm -f *.o
 
-run: tok
+run: tok clean
 	./tok
 
 
