@@ -38,6 +38,8 @@ char *copy_str(char *inStr, short len);
 */
 char **tokenize(char* str);
 
+int leng(char* str);
+
 /* Prints all tokens. */
 void print_tokens(char **tokens);
 

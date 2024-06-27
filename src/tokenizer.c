@@ -24,15 +24,7 @@ int space_char(char c){
    character (not tab or space).  
    Zero terminators are not printable (therefore false) */ 
 int non_space_char(char c){
-  if(c!=' ' && c!='\t'){
-   return 1;
-  }
-  else if(c=='\0'){
-    return 0;
-  }
-  else{
-    return 0;
-  }
+  return(c!=' ' && c!='\t' && c!='\0');
 }
 /* 
 Returns a pointer to the first character of the next 
@@ -88,6 +80,15 @@ char *copy_str(char *inStr, short len){
   return newStr;
 }
 
+int leng(char* str){
+  int len=0;
+  while(non_space_char(*str)){
+    len++;
+    str++;
+  }
+  return len;
+}
+
 /* Returns a freshly allocated zero-terminated vector of freshly allocated 
    space-separated tokens from zero-terminated str.
 
@@ -98,14 +99,35 @@ char *copy_str(char *inStr, short len){
      tokens[3] = 0
 */
 char **tokenize(char* str){
-  char **tokens=(char **)malloc(count_tokens(str)*sizeof(char*));
-  
+  int count=count_tokens(str);
+  char **tokens=(char **)malloc((count+1)*sizeof(char*));
+  for(int i=0; i<count; i++){
+    int len=leng(str);
+    tokens[i]=copy_str(str,len);
+    str=token_terminator(str);
+    str=token_start(str);
+  }
+  tokens[count]='\0';
+  return tokens;
 }
 
 /* Prints all tokens. */
-void print_tokens(char **tokens);
+void print_tokens(char **tokens){
+  int i=0;
+  while(tokens[i]){
+    printf("%d.%s\n", i+1, tokens[i]);
+    i++;
+  }
+}
 
 /* Frees all tokens and the vector containing themx. */
-void free_tokens(char **tokens);
+void free_tokens(char **tokens){
+  int i=0;
+  while(tokens[i]){
+    free(tokens[i]);
+    i++;
+  }
+  free(tokens);
+}
 
 #endif

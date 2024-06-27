@@ -1,6 +1,7 @@
 #include "stdio.h"
 #include <stdlib.h>
 #include "tokenizer.h"
+#include "history.h"
 
 int main(){
  
@@ -16,9 +17,14 @@ int main(){
      }  
    }
    char* token=token_start(str);
-   printf("%s\n", token);
-   printf("%d\n", count_tokens(token));
-   printf("%s\n", copy_str(token, 256));
+   List *stringlist=init_history();
+   char** tokenized=tokenize(token);
+   print_tokens(tokenized);
+   add_history(stringlist ,token);
+   print_history(stringlist);
+   // free_history(stringlist);
+   free_tokens(tokenized);
+   // printf("%s\n", copy_str(token, 256));
     switch(str[0]){
     case 'q':
       switch(str[1]){
