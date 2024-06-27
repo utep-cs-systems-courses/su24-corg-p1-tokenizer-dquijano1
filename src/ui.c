@@ -22,7 +22,7 @@ int main(){
    print_tokens(tokenized);
    add_history(stringlist ,token);
    print_history(stringlist);
-   // free_history(stringlist);
+   free_history(stringlist);
    free_tokens(tokenized);
    // printf("%s\n", copy_str(token, 256));
     switch(str[0]){
