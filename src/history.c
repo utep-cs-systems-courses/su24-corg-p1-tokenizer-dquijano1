@@ -33,16 +33,18 @@ void add_history(List *list, char *str){
     addedItem->str=str;
     addedItem->next=NULL;
     list->root=addedItem;
+    list->root->next=NULL;
   }
   else{
     Item *current=list->root;
-    while(current!=NULL){
-      addedItem=addedItem->next;
+    while(current!=NULL && current->next != NULL){
+      current=current->next;
       idnum++;
     }
     addedItem->id=idnum;
     addedItem->str=str;
     addedItem->next=NULL;
+    current->next=addedItem;
   }
 }
   
